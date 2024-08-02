@@ -14,6 +14,20 @@ app.get('/', async (req, res) => {
     res.render('index.ejs', { users });
 });
 
+app.get('/user/:id', async (req, res) => {
+
+    const response = await axios.get("https://gorest.co.in/public/v2/users");
+    const users = response.data;
+
+
+    const idToFind = req.params.id;
+    const record = users.find(record => record.id == idToFind);
+ 
+
+    res.render('single_user.ejs', { user: record });
+});
+
+
 //boilerplate
 
 const port = 3000;
