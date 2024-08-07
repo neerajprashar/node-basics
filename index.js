@@ -44,9 +44,34 @@ app.get('/user/:id', async (req, res) => {
     const idToFind = req.params.id;
     const record = users.find(record => record.id == idToFind);
  
-
+ 
     res.render('single_user.ejs', { user: record });
 });
+
+app.get('/update-user/:id', async (req, res) => {
+
+    const response = await axios.get("https://gorest.co.in/public/v2/users");
+    const users = response.data;
+    const idToFind = req.params.id;
+    const record = users.find(record => record.id == idToFind);
+    const showMessage = false;
+    res.render('update_record.ejs', { showMessage, user: record  });
+});
+
+app.post('/update-record', async (req, res) => {
+
+    const { name, email, gender } = req.body;
+
+    let apiRequest = {};
+    apiRequest.name = name;
+    apiRequest.email = email;
+    apiRequest.gender = gender;
+    console.log("apiRequest ",apiRequest);
+    const response = true;//await axios.post("https://gorest.co.in/public/v2/users", apiRequest);
+    const showMessage = true;
+    res.render('update_record.ejs', { showMessage, user: apiRequest });
+});
+
 
 
 //boilerplate

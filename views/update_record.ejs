@@ -12,41 +12,34 @@
   </head>
   <body>
     <div class="container">
-      <div class="w-100 pt-4 d-flex justify-content-end">
-        <a href="/add-record" class="btn btn-primary">Add Record</a>
-      </div>
-      <table class="table mt-4">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Name</th>
-              <th scope="col">Email</th>
-              <th scope="col">Gender</th>
-              <th scope="col">Actions</th>
-
-            </tr>
-          </thead>
-          <tbody>
-          <% users?.map( function(user, index) { %>
-              <tr>
-                  <th scope="row">
-                    <a href="/user/<%= user.id %>">
-                      <%=  user.id %>
-                    </a>
-                  </th>
-                  <td><%=  user.name %></td> 
-                  <td><%=  user.email %></td>
-                  <td><%=  user.gender %></td>
-                  <td>
-                    <a href="/update-user/<%=  user.id %>" class="btn btn-sm btn-info">Update</a>
-                  </td>
-
-                </tr>
-          <% }) %>
-            
-
-          </tbody>
-      </table>
+        <h1 class="my-5">Update Record</h1>
+        <% if(showMessage) { %>
+            <div class="alert alert-success message mb-4">Data saved successfully!</div>
+        <% } %>
+        <form accept="" action="/update-record" method="POST">
+            <div class="mb-3">
+                <label class="form-label">
+                    Name
+                </label>
+                <input type="text" class="form-control" value="<%=  user.name %>" placeholder="Name" name="name" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Email
+                </label>
+                <input type="email" class="form-control" value="<%=  user.email %>" placeholder="Email" name="email" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Gender
+                </label>
+                <select name="gender" class="form-control">
+                    <option value="male" <%=  user.gender == "male" ? 'selected': ''; %>>Male</option>
+                    <option value="female" <%=  user.gender == "female" ? 'selected': ''; %> >Female</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-info">Update Record</button>
+        </form>
     </div><!-- container -->
     <!-- Optional JavaScript; choose one of the two! -->
 
